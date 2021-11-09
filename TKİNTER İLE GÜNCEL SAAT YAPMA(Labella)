@@ -1,0 +1,19 @@
+from tkinter import Tk
+from tkinter import Label
+import time
+import sys
+
+pencere=Tk()
+pencere.title("dijital saat")
+
+def vakit():
+		zaman=time.strftime("%I:%M:%S:%p")
+		saat.config(text=zaman)
+		saat.after(200,vakit) # fonksiyon 200 saniye aralıkla çalışıcak
+
+saat=Label(pencere, font=("Calibri",90),bg="black",fg="white")
+saat.pack()
+
+vakit()
+
+pencere.mainloop()
