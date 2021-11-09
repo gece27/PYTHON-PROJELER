@@ -1,0 +1,11 @@
+import random
+karakterler="abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ123456!$@};`*#[_)]"
+
+while 1:
+			sifre_uzunluk=int(input("şifren ne kadar uzunlukta olsun"))
+			sifre_sayısı=int(input("kaç şifre istersin"))
+			sifre=""
+			for x  in range(0,sifre_sayısı):
+				sifre_karakter=random.choice(karakterler)
+				sifre=sifre+sifre_karakter
+			print("senin şifren:",sifre)  # aşağıdak here is your pasword ->işte senin şifren
