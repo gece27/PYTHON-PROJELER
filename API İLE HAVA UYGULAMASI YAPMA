@@ -1,0 +1,65 @@
+import tkinter as tk
+from tkinter.ttk import *
+from tkinter import messagebox
+from tkinter import *
+import requests
+from PIL import ImageTk,Image
+
+
+url="http://api.openweathermap.org/data/2.5/weather"
+anahtar="41e00d4736045d73b75a33eb8a523dd8"
+icon_url="http://openweathermap.org/img/wn/10d@2x.png"
+
+def hava(city):
+    params={'q':city,'appid':anahtar,'Lang':'tr'}
+    data=requests.get(url,params=params).json()
+    if data:
+        city=data["name"].capitalize()
+        country=data["sys"]["country"]  # data sys sütunun country değerleri
+        temp=int(data["main"]["temp"]-273.15)
+        icon=data["weather"][0]["icon"]
+        condition=data["weather"][0]["description"]
+        return (city,country,temp,icon,condition) #sırayla döndürcez
+    
+    
+def main():
+    city=sehirdegeri.get() #entrye girilen değer
+    weather=hava(city)
+    if weather:
+        locationlabel["text"]="{},{}".format(weather[0],weather[1]) #şehir-ülke
+        templabel["text"]="{}*c".format(weather[2]) #200*c yazar
+        conditionlabel["text"]=weather[4] #açık kapalı vb yazcak
+        icon=ImageTk.PhotoImage(Image.open(requests.get(icon_url.format(weather[3]),stream=True),raw))
+        iconlabel.configure(image=icon)
+        iconlabel.image=icon
+    
+    
+
+
+pencere=Tk()
+pencere.geometry("300x400")
+pencere.title("hava durumu uygulaması")
+
+
+
+sehirdegeri=Entry(pencere,justify="center")
+sehirdegeri.pack(fill=BOTH,ipady=10,padx=15,pady=5)
+sehirdegeri.focus()
+
+searchbutton=Button(pencere,text="ARAMA",font=("Arial",15),command=main)
+searchbutton.pack(fill=BOTH,ipady=10,padx=20)
+
+
+iconlabel=Label(pencere)
+iconlabel.pack()
+
+locationlabel=Label(pencere,font=("Arial",40))
+locationlabel.pack()
+
+templabel=Label(pencere,font=("Arial",50,"bold"))
+templabel.pack()
+
+conditionlabel=Label(pencere,font=("Arial",20,))
+conditionlabel.pack()
+
+pencere.mainloop()
