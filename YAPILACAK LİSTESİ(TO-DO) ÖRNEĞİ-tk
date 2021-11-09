@@ -1,0 +1,53 @@
+import tkinter as tk
+
+def ekle():
+    box.insert(tk.END, e.get())
+    e.delete(0, tk.END)
+def sil():
+    if len(box.curselection()) > 0:
+        index = box.curselection()[0]
+        box.delete(index)
+
+#dosya açma yazdırma kısmı
+def kaydet():
+    f = open('yap.txt', 'w', encoding='utf-8') 
+    gorevler = box.get(0, tk.END)
+    f.writelines('\n'.join(gorevler))
+    f.close()
+
+#açılan dosyadaki verileri okuma geri getirme-yazdırma
+def yukle():
+    f = open('yap.txt', 'r', encoding='utf-8') 
+    gorevler = f.readlines()
+    box.delete(0, tk.END)
+    for gorev in gorevler:
+        if '\n' in gorev:
+            gorev = gorev.replace('\n', '')
+        box.insert(tk.END, gorev)
+
+pencere = tk.Tk()
+pencere.title('Yapacaklar listesi')
+
+f = tk.Frame(pencere)   #GÖREVLERİN GÖZÜKECEĞİ DİV-ALAN
+f.pack()
+box = tk.Listbox(f, width=50, height=10) #GÖREVLERİN YAZACAĞI-GÖZÜKECEĞİ YER
+box.pack(side=tk.LEFT) # SOLA DAYA
+scroll = tk.Scrollbar(f, command=box.yview)# Y EKSENLİ AŞAĞI-YUKARIYA
+scroll.pack(side=tk.RIGHT, fill=tk.Y) #EN SAĞA VE Y EKSENİ DOĞRULTUSUNDA DOLDUR
+box.config(yscrollcommand=scroll.set) #SCROLU KURMA
+
+
+
+e = tk.Entry(pencere, width=40)#METİN YAZMA YERİ
+e.pack()
+e.focus() #BUTONLARIN BİR ÜSTÜNE PACK BUDA SIRAYLA DENK GELİR!
+bekle=tk.Button(pencere, text='Görev ekle', width=40, command=ekle) #PACK OLDUĞUNDAN ALT ALTA GELİCEL
+bekle.pack()
+bsil=tk.Button(pencere, text='Görev sil', width=40, command=sil)
+bsil.pack()
+bkaydet=tk.Button(pencere, text='Görevleri kaydet', width=40, command=kaydet)
+bkaydet.pack()
+byukle=tk.Button(pencere, text='Görevleri yükle', width=40, command=yukle)
+byukle.pack()
+
+pencere.mainloop()
