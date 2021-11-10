@@ -1,0 +1,19 @@
+import tkinter as tk  #BU ÜÇLÜYÜ İMPORT ET!
+from tkinter import *
+from tkinter.ttk import *
+
+pencere=tk.Tk()
+yazı=Label(pencere,text="Merhaba Grafik Arayüz")
+yazı.place(x=40,y=50)
+
+def x():
+        yazı.config(text="Hosçakal Grafik Arayüz...")
+        btn.config(text="Lütfen bekleyiniz …")
+    
+    
+btn=Button(pencere,text="çıkış",command=x)
+btn.place(x=51,y=75)
+
+
+
+pencere.mainloop()
