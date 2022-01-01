@@ -1,0 +1,20 @@
+from firebase import firebase
+firebase=firebase.FirebaseApplication('https://deneme2-64003-default-rtdb.firebaseio.com/',None)
+
+data={
+    "user":"alperen",
+    "password":"1453",
+        "city":"izmir",
+        "country":"kanada",
+        "age":15
+            }
+
+firebase.post('deneme2-64003-default-rtdb/Users',data)
+
+#firebase.delete('/deneme2-64003-default-rtdb/Users/-MsFbd02AIk2JX0TzJNp/','age')  #VERİ SİLER AGE KEY YANİ SÜTUN SONDAKİ
+
+#firebase.put('/deneme2-64003-default-rtdb/Users','-MsLzHh2ajM6Erk8fyvw','tablo1')
+
+#firebase.put('/deneme2-64003-default-rtdb/Users/-MsLzHh2ajM6Erk8fyvw','country','TÜRKİYE') #VERİ EKLER
+
+firebase.put('/deneme2-64003-default-rtdb/Users/-MsM13fS1LNmryxz81ry','age',20)
